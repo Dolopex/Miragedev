@@ -1,0 +1,1233 @@
+// Interactive background circles
+        const circles = [
+            document.getElementById('circle1'),
+            document.getElementById('circle2'),
+            document.getElementById('circle3')
+        ];
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let scrollY = 0;
+        
+        // Mouse move effect
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            circles.forEach((circle, index) => {
+                const speed = (index + 1) * 0.02;
+                const x = (mouseX - window.innerWidth / 2) * speed;
+                const y = (mouseY - window.innerHeight / 2) * speed;
+                
+                circle.style.transform = `translate(${x}px, ${y}px) scale(${1 + index * 0.05})`;
+            });
+        });
+        
+        // Scroll effect
+        let ticking = false;
+        
+        window.addEventListener('scroll', () => {
+            scrollY = window.pageYOffset;
+            
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    circles.forEach((circle, index) => {
+                        const speed = (index + 1) * 0.1;
+                        const rotation = scrollY * 0.05;
+                        const currentTransform = circle.style.transform || '';
+                        
+                        // Mantener el efecto del mouse y agregar el scroll
+                        const translateMatch = currentTransform.match(/translate\(([^)]+)\)/);
+                        const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                        
+                        circle.style.transform = `translate(${translate}) translateY(${scrollY * speed}px) rotate(${rotation}deg)`;
+                    });
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        });
+        
+        // Inicializar posiciones
+        circles[0].style.top = '25%';
+        circles[0].style.left = '25%';
+        circles[1].style.top = '33%';
+        circles[1].style.right = '25%';
+        circles<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirage Dev - Agencia de Desarrollo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Permanent+Marker&family=Bungee+Shade&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .font-graffiti {
+            font-family: 'Permanent Marker', cursive;
+        }
+        
+        .font-bungee {
+            font-family: 'Bungee Shade', cursive;
+        }
+        
+        /* Neon breathing effect - Solo para elementos clave */
+        @keyframes neonBreathe {
+            0%, 100% {
+                text-shadow: 
+                    0 0 10px currentColor,
+                    0 0 20px currentColor,
+                    0 0 30px currentColor;
+            }
+            50% {
+                text-shadow: 
+                    0 0 5px currentColor,
+                    0 0 15px currentColor,
+                    0 0 20px currentColor;
+            }
+        }
+        
+        @keyframes neonBreatheBorder {
+            0%, 100% {
+                box-shadow: 
+                    0 0 10px rgba(138, 43, 226, 0.5),
+                    inset 0 0 10px rgba(138, 43, 226, 0.1);
+            }
+            50% {
+                box-shadow: 
+                    0 0 20px rgba(138, 43, 226, 0.8),
+                    inset 0 0 15px rgba(138, 43, 226, 0.2);
+            }
+        }
+        
+        .neon-text {
+            animation: neonBreathe 3s ease-in-out infinite;
+        }
+        
+        .neon-border {
+            animation: neonBreatheBorder 3s ease-in-out infinite;
+        }
+        
+        /* Neon estático para elementos secundarios */
+        .neon-static {
+            text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+        }
+        
+        /* Background grid */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(138, 43, 226, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(138, 43, 226, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        /* Gradient text para graffiti */
+        .graffiti-purple {
+            color: #a855f7;
+            text-shadow: 
+                0 0 20px #a855f7,
+                0 0 40px #8b5cf6,
+                0 0 60px #7c3aed,
+                2px 2px 0px #000,
+                -2px -2px 0px #000;
+        }
+        
+        .graffiti-green {
+            color: #10b981;
+            text-shadow: 
+                0 0 20px #10b981,
+                0 0 40px #059669,
+                0 0 60px #047857,
+                2px 2px 0px #000,
+                -2px -2px 0px #000;
+        }
+        
+        .graffiti-mix {
+            background: linear-gradient(135deg, #a855f7 0%, #10b981 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 30px rgba(16, 185, 129, 0.6));
+        }
+        
+        /* Float animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Pulse animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        /* Animación de círculos flotantes */
+        @keyframes floatMove {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1);
+            }
+            25% { 
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            50% { 
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+            75% { 
+                transform: translate(40px, 10px) scale(1.05);
+            }
+        }
+        
+        .floating-circle {
+            animation: floatMove 20s ease-in-out infinite;
+            transition: transform 0.3s ease-out;
+        }
+        
+        /* Typewriter effect */
+        @keyframes typeIn {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #00f5ff; }
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #00f5ff;
+            white-space: nowrap;
+            animation: typeIn 3s steps(40) 1s forwards, blink 0.75s step-end infinite;
+        }
+        
+        /* Hover glow effect */
+        .hover-glow {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-glow:hover {
+            transform: translateY(-5px);
+            filter: drop-shadow(0 10px 30px rgba(138, 43, 226, 0.6));
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#0a0a1a] via-[#1a0a2e] to-[#16213e] text-white overflow-x-hidden">
+    
+    <!-- Grid Background -->
+    <div class="fixed inset-0 grid-bg opacity-50 pointer-events-none"></div>
+    
+    <!-- Animated circles background -->
+    <div id="bg-container" class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="floating-circle absolute w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20" id="circle1"></div>
+        <div class="floating-circle absolute w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20" id="circle2" style="animation-delay: -5s;"></div>
+        <div class="floating-circle absolute w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20" id="circle3" style="animation-delay: -10s;"></div>
+    </div>
+    
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-gradient-to-r from-[#0a0a1a]/90 via-[#1a0a2e]/90 to-[#0a0a1a]/90 border-b-2 border-purple-500/30 shadow-lg shadow-purple-500/20">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Logo con efecto especial -->
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg blur opacity-50 group-hover:opacity-75 transition"></div>
+                    <div class="relative bg-[#1a0a2e] border-2 border-cyan-400 rounded-lg p-2 group-hover:scale-105 transition">
+                        <span class="text-3xl">⚡</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-graffiti text-2xl font-bold graffiti-mix leading-none">
+                        MIRAGE
+                    </div>
+                    <div class="font-orbitron text-xs text-cyan-400 tracking-widest neon-static">
+                        D E V E L O P M E N T
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="hidden md:flex items-center gap-2">
+                <a href="#inicio" class="relative px-4 py-2 text-sm font-medium text-white hover:text-cyan-400 transition group">
+                    <span class="relative z-10">Inicio</span>
+                    <div class="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400/10 rounded-lg transition"></div>
+                    <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-300"></div>
+                </a>
+                <a href="#servicios" class="relative px-4 py-2 text-sm font-medium text-white hover:text-cyan-400 transition group">
+                    <span class="relative z-10">Servicios</span>
+                    <div class="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400/10 rounded-lg transition"></div>
+                    <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-300"></div>
+                </a>
+                <a href="#portafolio" class="relative px-4 py-2 text-sm font-medium text-white hover:text-cyan-400 transition group">
+                    <span class="relative z-10">Portafolio</span>
+                    <div class="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400/10 rounded-lg transition"></div>
+                    <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-300"></div>
+                </a>
+                <div class="w-px h-6 bg-purple-500/30 mx-2"></div>
+                <a href="#contacto" class="px-6 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-sm font-bold hover:shadow-lg hover:shadow-purple-500/50 hover:scale-105 transition">
+                    Contactar 💬
+                </a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <button class="md:hidden text-cyan-400 hover:text-purple-400 transition p-2 rounded-lg hover:bg-cyan-400/10">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Animated underline -->
+        <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-50"></div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <!-- Content -->
+            <div class="space-y-6 z-10">
+                <div class="inline-block px-4 py-2 rounded-full border-2 border-purple-500 neon-border bg-purple-900/20">
+                    <span class="text-cyan-400 text-sm font-medium neon-text">✨ Tu visión, nuestro código</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight">
+                    <span class="font-orbitron">Explora nuestra</span><br>
+                    <span class="font-graffiti text-6xl md:text-8xl graffiti-purple neon-text">GAMA ÉPICA</span><br>
+                    <span class="font-orbitron">de servicios</span>
+                </h1>
+                
+                <p class="text-lg text-gray-300 max-w-xl leading-relaxed">
+                    Transformamos ideas en experiencias digitales <span class="text-cyan-400 neon-text font-semibold">extraordinarias</span>. 
+                    Desarrollo web, apps móviles, y soluciones tech que hacen brillar tu negocio.
+                </p>
+                
+                <div class="flex gap-4 flex-wrap">
+                    <a href="#servicios" class="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full font-bold text-white hover-glow overflow-hidden">
+                        <span class="relative z-10">🚀 EXPLORAR SERVICIOS</span>
+                        <div class="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    </a>
+                    <a href="#contacto" class="inline-flex items-center gap-2 px-8 py-4 border-2 border-cyan-400 rounded-full font-bold text-cyan-400 hover:bg-cyan-400/10 transition">
+                        <span>💬 CONTACTAR</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Code Window -->
+            <div class="relative z-10 float">
+                <div class="bg-[#1a0a2e]/80 backdrop-blur-md border-2 border-purple-500 rounded-2xl p-6 shadow-2xl neon-border">
+                    <!-- Window controls -->
+                    <div class="flex gap-2 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500 neon-glow"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500 neon-glow"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500 neon-glow"></div>
+                    </div>
+                    
+                    <!-- Code content -->
+                    <div class="font-mono text-sm space-y-2">
+                        <div class="text-gray-400">
+                            <span class="text-pink-500 neon-static">const</span> 
+                            <span class="text-cyan-400 neon-static"> crearMagia</span> 
+                            <span class="text-white">= () => {</span>
+                        </div>
+                        <div class="pl-4 text-gray-400">
+                            <span class="text-pink-500 neon-static">return</span>
+                            <span class="text-purple-400"> 'código limpio'</span> +
+                        </div>
+                        <div class="pl-12 text-purple-400">
+                            'diseño increíble' +
+                        </div>
+                        <div class="pl-12 text-purple-400">
+                            'resultados reales';
+                        </div>
+                        <div class="pl-4 text-white">};</div>
+                        <div class="text-gray-500">
+                            <span class="text-green-500">// 🔥 Esto es Mirage Dev</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative elements -->
+                    <div class="mt-6 flex items-center gap-4">
+                        <div class="flex-1 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded"></div>
+                        <div class="text-cyan-400 text-xs font-orbitron neon-static">COMPILING...</div>
+                    </div>
+                </div>
+                
+                <!-- Floating elements -->
+                <div class="absolute -top-10 -right-10 w-20 h-20 border-4 border-cyan-400 rounded-lg rotate-12 pulse"></div>
+                <div class="absolute -bottom-10 -left-10 w-16 h-16 border-4 border-purple-500 rounded-full pulse" style="animation-delay: 1s;"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="servicios" class="relative py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-5xl md:text-6xl font-black mb-4">
+                    Nuestros <span class="font-graffiti graffiti-green text-7xl neon-text">SUPERPODERES</span>
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Servicios de primera que transforman tu negocio digital
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Cards aquí... -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section id="portafolio" class="relative py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-5xl md:text-6xl font-black mb-4">
+                    Nuestro <span class="font-graffiti graffiti-purple text-7xl neon-text">PORTAFOLIO</span>
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Proyectos que hemos creado con pasión y tecnología de vanguardia
+                </p>
+            </div>
+            
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="portfolio-filter active px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full font-bold text-sm transition-all hover:scale-105" data-filter="all">
+                    TODOS
+                </button>
+                <button class="portfolio-filter px-6 py-3 bg-[#1a0a2e]/60 border-2 border-purple-500/30 rounded-full font-bold text-sm hover:border-cyan-400 transition-all" data-filter="web">
+                    WEB
+                </button>
+                <button class="portfolio-filter px-6 py-3 bg-[#1a0a2e]/60 border-2 border-purple-500/30 rounded-full font-bold text-sm hover:border-cyan-400 transition-all" data-filter="mobile">
+                    MOBILE
+                </button>
+                <button class="portfolio-filter px-6 py-3 bg-[#1a0a2e]/60 border-2 border-purple-500/30 rounded-full font-bold text-sm hover:border-cyan-400 transition-all" data-filter="design">
+                    DESIGN
+                </button>
+                <button class="portfolio-filter px-6 py-3 bg-[#1a0a2e]/60 border-2 border-purple-500/30 rounded-full font-bold text-sm hover:border-cyan-400 transition-all" data-filter="ecommerce">
+                    E-COMMERCE
+                </button>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl overflow-hidden hover-glow transition-all duration-500 hover:border-cyan-400" data-category="web">
+                    <div class="aspect-video bg-gradient-to-br from-cyan-500/20 to-purple-600/20 relative overflow-hidden">
+                        <!-- Placeholder image area -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-cyan-400/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <!-- Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-3 py-1 bg-cyan-500/20 border border-cyan-400/50 rounded-full text-cyan-400 text-xs font-bold">WEB</span>
+                            <span class="text-gray-500 text-xs">2024</span>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition">
+                            E-Commerce Platform
+                        </h3>
+                        
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            Plataforma completa de comercio electrónico con pasarela de pagos integrada y panel administrativo.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">React</span>
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">Node.js</span>
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">MongoDB</span>
+                        </div>
+                        
+                        <a href="#" class="inline-flex items-center gap-2 text-cyan-400 text-sm font-medium group-hover:gap-3 transition-all">
+                            <span>Ver proyecto</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl overflow-hidden hover-glow transition-all duration-500 hover:border-cyan-400" data-category="mobile">
+                    <div class="aspect-video bg-gradient-to-br from-purple-500/20 to-pink-600/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-purple-400/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-3 py-1 bg-purple-500/20 border border-purple-400/50 rounded-full text-purple-400 text-xs font-bold">MOBILE</span>
+                            <span class="text-gray-500 text-xs">2024</span>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition">
+                            Fitness Tracker App
+                        </h3>
+                        
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            App móvil para seguimiento de ejercicios y nutrición con integración de wearables.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">React Native</span>
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">Firebase</span>
+                        </div>
+                        
+                        <a href="#" class="inline-flex items-center gap-2 text-purple-400 text-sm font-medium group-hover:gap-3 transition-all">
+                            <span>Ver proyecto</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl overflow-hidden hover-glow transition-all duration-500 hover:border-cyan-400" data-category="design">
+                    <div class="aspect-video bg-gradient-to-br from-green-500/20 to-cyan-600/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-green-400/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                            </svg>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-3 py-1 bg-green-500/20 border border-green-400/50 rounded-full text-green-400 text-xs font-bold">DESIGN</span>
+                            <span class="text-gray-500 text-xs">2024</span>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-2 group-hover:text-green-400 transition">
+                            Banking Dashboard
+                        </h3>
+                        
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            Diseño completo de dashboard bancario con enfoque en UX y accesibilidad.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">Figma</span>
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">UI/UX</span>
+                        </div>
+                        
+                        <a href="#" class="inline-flex items-center gap-2 text-green-400 text-sm font-medium group-hover:gap-3 transition-all">
+                            <span>Ver proyecto</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-cyan-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-item group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl overflow-hidden hover-glow transition-all duration-500 hover:border-cyan-400" data-category="web">
+                    <div class="aspect-video bg-gradient-to-br from-blue-500/20 to-indigo-600/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-blue-400/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                            </svg>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-3 py-1 bg-blue-500/20 border border-blue-400/50 rounded-full text-blue-400 text-xs font-bold">WEB</span>
+                            <span class="text-gray-500 text-xs">2024</span>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition">
+                            SaaS Platform
+                        </h3>
+                        
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            Plataforma SaaS para gestión de proyectos con colaboración en tiempo real.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">Next.js</span>
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">PostgreSQL</span>
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">AWS</span>
+                        </div>
+                        
+                        <a href="#" class="inline-flex items-center gap-2 text-blue-400 text-sm font-medium group-hover:gap-3 transition-all">
+                            <span>Ver proyecto</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-item group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl overflow-hidden hover-glow transition-all duration-500 hover:border-cyan-400" data-category="ecommerce">
+                    <div class="aspect-video bg-gradient-to-br from-yellow-500/20 to-orange-600/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-yellow-400/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-3 py-1 bg-yellow-500/20 border border-yellow-400/50 rounded-full text-yellow-400 text-xs font-bold">E-COMMERCE</span>
+                            <span class="text-gray-500 text-xs">2023</span>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition">
+                            Fashion Store
+                        </h3>
+                        
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            Tienda de moda online con catálogo dinámico y sistema de recomendaciones.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">Shopify</span>
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">Liquid</span>
+                        </div>
+                        
+                        <a href="#" class="inline-flex items-center gap-2 text-yellow-400 text-sm font-medium group-hover:gap-3 transition-all">
+                            <span>Ver proyecto</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-item group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl overflow-hidden hover-glow transition-all duration-500 hover:border-cyan-400" data-category="mobile">
+                    <div class="aspect-video bg-gradient-to-br from-pink-500/20 to-red-600/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-pink-400/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-3 py-1 bg-pink-500/20 border border-pink-400/50 rounded-full text-pink-400 text-xs font-bold">MOBILE</span>
+                            <span class="text-gray-500 text-xs">2023</span>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition">
+                            Video Streaming App
+                        </h3>
+                        
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            Aplicación de streaming de video con contenido on-demand y live streaming.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">Flutter</span>
+                            <span class="px-2 py-1 bg-purple-900/30 border border-purple-500/30 rounded text-purple-400 text-xs">AWS</span>
+                        </div>
+                        
+                        <a href="#" class="inline-flex items-center gap-2 text-pink-400 text-sm font-medium group-hover:gap-3 transition-all">
+                            <span>Ver proyecto</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button class="group px-8 py-4 bg-[#1a0a2e]/60 border-2 border-purple-500/30 rounded-full font-bold hover:border-cyan-400 hover:bg-cyan-400/10 transition-all hover:scale-105">
+                    <span class="flex items-center gap-2">
+                        Ver más proyectos
+                        <svg class="w-5 h-5 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-8 hover-glow transition-all duration-500 hover:border-cyan-400 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-500/10 to-purple-600/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 mb-6 relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition"></div>
+                            <div class="relative bg-[#0a0a1a] border-2 border-cyan-400/50 rounded-xl p-3 group-hover:border-cyan-400 transition flex items-center justify-center">
+                                <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-2xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text mb-3">
+                            Desarrollo Web
+                        </h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Sitios web modernos, rápidos y responsivos que convierten visitantes en clientes. React, Next.js, y las últimas tecnologías.
+                        </p>
+                        
+                        <div class="mt-6 flex items-center gap-2 text-cyan-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span>Explorar más</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-8 hover-glow transition-all duration-500 hover:border-cyan-400 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-pink-600/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 mb-6 relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition"></div>
+                            <div class="relative bg-[#0a0a1a] border-2 border-purple-400/50 rounded-xl p-3 group-hover:border-purple-400 transition flex items-center justify-center">
+                                <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-2xl font-bold text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text mb-3">
+                            Apps Móviles
+                        </h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Aplicaciones nativas e híbridas que tus usuarios amarán. iOS, Android, y experiencias multiplataforma impecables.
+                        </p>
+                        
+                        <div class="mt-6 flex items-center gap-2 text-purple-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span>Explorar más</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Service Card 3 -->
+                <div class="group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-8 hover-glow transition-all duration-500 hover:border-cyan-400 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/10 to-cyan-600/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 mb-6 relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-green-400 to-cyan-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition"></div>
+                            <div class="relative bg-[#0a0a1a] border-2 border-green-400/50 rounded-xl p-3 group-hover:border-green-400 transition flex items-center justify-center">
+                                <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-2xl font-bold text-transparent bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text mb-3">
+                            UI/UX Design
+                        </h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Interfaces que enamoran y experiencias que quedan grabadas. Diseño centrado en el usuario, siempre.
+                        </p>
+                        
+                        <div class="mt-6 flex items-center gap-2 text-green-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span>Explorar más</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-cyan-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Service Card 4 -->
+                <div class="group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-8 hover-glow transition-all duration-500 hover:border-cyan-400 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-500/10 to-orange-600/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 mb-6 relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition"></div>
+                            <div class="relative bg-[#0a0a1a] border-2 border-yellow-400/50 rounded-xl p-3 group-hover:border-yellow-400 transition flex items-center justify-center">
+                                <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-2xl font-bold text-transparent bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text mb-3">
+                            E-Commerce
+                        </h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Tiendas online que venden 24/7. Integración de pagos, gestión de inventario y analíticas poderosas.
+                        </p>
+                        
+                        <div class="mt-6 flex items-center gap-2 text-yellow-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span>Explorar más</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Service Card 5 -->
+                <div class="group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-8 hover-glow transition-all duration-500 hover:border-cyan-400 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-indigo-600/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 mb-6 relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition"></div>
+                            <div class="relative bg-[#0a0a1a] border-2 border-blue-400/50 rounded-xl p-3 group-hover:border-blue-400 transition flex items-center justify-center">
+                                <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-2xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text mb-3">
+                            Consultoría Tech
+                        </h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Guía experta para escalar tu producto digital. Arquitectura, optimización y estrategia tecnológica.
+                        </p>
+                        
+                        <div class="mt-6 flex items-center gap-2 text-blue-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span>Explorar más</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+                
+                <!-- Service Card 6 -->
+                <div class="group relative bg-gradient-to-br from-[#1a0a2e]/80 to-[#0a0a1a]/80 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-8 hover-glow transition-all duration-500 hover:border-cyan-400 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-500/10 to-pink-600/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 mb-6 relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-red-400 to-pink-600 rounded-xl blur opacity-50 group-hover:opacity-75 transition"></div>
+                            <div class="relative bg-[#0a0a1a] border-2 border-red-400/50 rounded-xl p-3 group-hover:border-red-400 transition flex items-center justify-center">
+                                <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <h3 class="font-orbitron text-2xl font-bold text-transparent bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text mb-3">
+                            Mantenimiento
+                        </h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Mantenemos tu plataforma al día, segura y funcionando perfectamente. Soporte técnico cuando lo necesites.
+                        </p>
+                        
+                        <div class="mt-6 flex items-center gap-2 text-red-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span>Explorar más</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-pink-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="relative py-24">
+        <div class="container mx-auto px-6">
+            <div class="bg-gradient-to-r from-purple-900/50 to-cyan-900/50 backdrop-blur-md border-2 border-purple-500 rounded-3xl p-12 md:p-20 text-center neon-border">
+                <h2 class="font-graffiti text-5xl md:text-7xl graffiti-mix neon-text mb-6">
+                    ¿LISTO PARA DESPEGAR?
+                </h2>
+                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                    Hagamos realidad ese proyecto que tienes en mente. Conversemos y creemos algo increíble juntos.
+                </p>
+                <a href="#contacto" class="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full font-bold text-xl hover-glow">
+                    <span>🎯 INICIAR PROYECTO</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Form Section -->
+    <section id="contacto-form" class="relative py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-5xl md:text-6xl font-black mb-4">
+                    Hablemos de tu <span class="font-graffiti graffiti-purple neon-text text-7xl">PROYECTO</span>
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="relative bg-gradient-to-br from-[#1a0a2e]/90 to-[#0a0a1a]/90 backdrop-blur-xl border-2 border-purple-500/30 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden">
+                    <!-- Decorative elements -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/10 to-purple-600/10 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-purple-500/10 to-pink-600/10 rounded-full blur-3xl"></div>
+                    
+                    <form class="relative z-10 space-y-6">
+                        <!-- Name Input -->
+                        <div class="group">
+                            <label for="name" class="block text-cyan-400 font-orbitron text-sm font-bold mb-2">
+                                NOMBRE COMPLETO
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="text" 
+                                    id="name"
+                                    class="w-full bg-[#0a0a1a]/50 border-2 border-purple-500/30 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:border-cyan-400 focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-cyan-400/20"
+                                    placeholder="Tu nombre"
+                                    required
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 rounded-xl opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Email & Phone Grid -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="group">
+                                <label for="email" class="block text-cyan-400 font-orbitron text-sm font-bold mb-2">
+                                    EMAIL
+                                </label>
+                                <div class="relative">
+                                    <input 
+                                        type="email" 
+                                        id="email"
+                                        class="w-full bg-[#0a0a1a]/50 border-2 border-purple-500/30 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:border-cyan-400 focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-cyan-400/20"
+                                        placeholder="tu@email.com"
+                                        required
+                                    />
+                                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 rounded-xl opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="group">
+                                <label for="phone" class="block text-cyan-400 font-orbitron text-sm font-bold mb-2">
+                                    TELÉFONO
+                                </label>
+                                <div class="relative">
+                                    <input 
+                                        type="tel" 
+                                        id="phone"
+                                        class="w-full bg-[#0a0a1a]/50 border-2 border-purple-500/30 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:border-cyan-400 focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-cyan-400/20"
+                                        placeholder="+57 300 123 4567"
+                                    />
+                                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 rounded-xl opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Service Select -->
+                        <div class="group">
+                            <label for="service" class="block text-cyan-400 font-orbitron text-sm font-bold mb-2">
+                                SERVICIO DE INTERÉS
+                            </label>
+                            <div class="relative">
+                                <select 
+                                    id="service"
+                                    class="w-full bg-[#0a0a1a]/50 border-2 border-purple-500/30 rounded-xl px-4 py-4 text-white focus:border-cyan-400 focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-cyan-400/20 appearance-none cursor-pointer"
+                                    required
+                                >
+                                    <option value="" disabled selected>Selecciona un servicio</option>
+                                    <option value="web">Desarrollo Web</option>
+                                    <option value="mobile">Apps Móviles</option>
+                                    <option value="design">UI/UX Design</option>
+                                    <option value="ecommerce">E-Commerce</option>
+                                    <option value="consulting">Consultoría Tech</option>
+                                    <option value="maintenance">Mantenimiento</option>
+                                </select>
+                                <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                                <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 rounded-xl opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Budget Range -->
+                        <div class="group">
+                            <label for="budget" class="block text-cyan-400 font-orbitron text-sm font-bold mb-2">
+                                PRESUPUESTO ESTIMADO
+                            </label>
+                            <div class="relative">
+                                <select 
+                                    id="budget"
+                                    class="w-full bg-[#0a0a1a]/50 border-2 border-purple-500/30 rounded-xl px-4 py-4 text-white focus:border-cyan-400 focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-cyan-400/20 appearance-none cursor-pointer"
+                                    required
+                                >
+                                    <option value="" disabled selected>Selecciona un rango</option>
+                                    <option value="1">Menos de $1,000 USD</option>
+                                    <option value="2">$1,000 - $5,000 USD</option>
+                                    <option value="3">$5,000 - $10,000 USD</option>
+                                    <option value="4">$10,000 - $25,000 USD</option>
+                                    <option value="5">Más de $25,000 USD</option>
+                                </select>
+                                <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                                <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 rounded-xl opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Message Textarea -->
+                        <div class="group">
+                            <label for="message" class="block text-cyan-400 font-orbitron text-sm font-bold mb-2">
+                                CUÉNTANOS SOBRE TU PROYECTO
+                            </label>
+                            <div class="relative">
+                                <textarea 
+                                    id="message"
+                                    rows="6"
+                                    class="w-full bg-[#0a0a1a]/50 border-2 border-purple-500/30 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:border-cyan-400 focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-cyan-400/20 resize-none"
+                                    placeholder="Describe tu idea, objetivos, plazos y cualquier detalle importante..."
+                                    required
+                                ></textarea>
+                                <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 rounded-xl opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="pt-4">
+                            <button 
+                                type="submit"
+                                class="group relative w-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold text-lg py-5 rounded-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-400/50 hover:scale-[1.02]"
+                            >
+                                <span class="relative z-10 flex items-center justify-center gap-3">
+                                    <svg class="w-6 h-6 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                    </svg>
+                                    ENVIAR MENSAJE
+                                </span>
+                                <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </button>
+                        </div>
+                        
+                        <!-- Privacy Notice -->
+                        <p class="text-gray-500 text-sm text-center pt-4">
+                            Al enviar este formulario, aceptas nuestra política de privacidad y tratamiento de datos.
+                        </p>
+                    </form>
+                    
+                    <!-- Animated border -->
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-50"></div>
+                </div>
+                
+                <!-- Contact Info Cards -->
+                <div class="grid md:grid-cols-3 gap-6 mt-12">
+                    <div class="bg-[#1a0a2e]/60 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-6 text-center hover-glow transition">
+                        <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h4 class="font-orbitron text-cyan-400 font-bold mb-2">EMAIL</h4>
+                        <p class="text-gray-400 text-sm">miragedev@gmail.com</p>
+                    </div>
+                    
+                    <div class="bg-[#1a0a2e]/60 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-6 text-center hover-glow transition">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h4 class="font-orbitron text-purple-400 font-bold mb-2">HORARIO</h4>
+                        <p class="text-gray-400 text-sm">Lun - Vie: 9AM - 6PM</p>
+                    </div>
+                    
+                    <div class="bg-[#1a0a2e]/60 backdrop-blur-md border-2 border-purple-500/30 rounded-2xl p-6 text-center hover-glow transition">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-cyan-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h4 class="font-orbitron text-green-400 font-bold mb-2">UBICACIÓN</h4>
+                        <p class="text-gray-400 text-sm">Cartagena, Colombia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contacto" class="relative border-t border-purple-500/20 bg-[#0a0a1a]/80 backdrop-blur-lg py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="font-orbitron text-2xl font-black text-cyan-400 neon-text mb-4">
+                        ⚡ MIRAGE DEV
+                    </div>
+                    <p class="text-gray-400">
+                        Creando el futuro, una línea de código a la vez.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-orbitron text-cyan-400 neon-text mb-4 font-bold">Enlaces</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#inicio" class="hover:text-cyan-400 transition">Inicio</a></li>
+                        <li><a href="#servicios" class="hover:text-cyan-400 transition">Servicios</a></li>
+                        <li><a href="#portafolio" class="hover:text-cyan-400 transition">Portafolio</a></li>
+                        <li><a href="#contacto" class="hover:text-cyan-400 transition">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-orbitron text-cyan-400 mb-4 font-bold">Síguenos</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-purple-900/50 border border-cyan-400 rounded-lg flex items-center justify-center hover-glow transition">
+                            <span>⚡</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-purple-900/50 border border-cyan-400 rounded-lg flex items-center justify-center hover-glow transition">
+                            <span>💼</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-purple-900/50 border border-cyan-400 rounded-lg flex items-center justify-center hover-glow transition">
+                            <span>🐦</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-purple-900/50 border border-cyan-400 rounded-lg flex items-center justify-center hover-glow transition">
+                            <span>📸</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-purple-500/20 pt-8 text-center text-gray-400">
+                <p>© 2024 Mirage Dev. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Interactive background circles
+        const circles = [
+            document.getElementById('circle1'),
+            document.getElementById('circle2'),
+            document.getElementById('circle3')
+        ];
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let scrollY = 0;
+        
+        // Mouse move effect
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            circles.forEach((circle, index) => {
+                const speed = (index + 1) * 0.02;
+                const x = (mouseX - window.innerWidth / 2) * speed;
+                const y = (mouseY - window.innerHeight / 2) * speed;
+                
+                circle.style.transform = `translate(${x}px, ${y}px) scale(${1 + index * 0.05})`;
+            });
+        });
+        
+        // Scroll effect
+        let ticking = false;
+        
+        window.addEventListener('scroll', () => {
+            scrollY = window.pageYOffset;
+            
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    circles.forEach((circle, index) => {
+                        const speed = (index + 1) * 0.1;
+                        const rotation = scrollY * 0.05;
+                        const currentTransform = circle.style.transform || '';
+                        
+                        // Mantener el efecto del mouse y agregar el scroll
+                        const translateMatch = currentTransform.match(/translate\(([^)]+)\)/);
+                        const translate = translateMatch ? translateMatch[1] : '0px, 0px';
+                        
+                        circle.style.transform = `translate(${translate}) translateY(${scrollY * speed}px) rotate(${rotation}deg)`;
+                    });
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        });
+        
+        // Inicializar posiciones
+        circles[0].style.top = '25%';
+        circles[0].style.left = '25%';
+        circles[1].style.top = '33%';
+        circles[1].style.right = '25%';
+        circles[2].style.bottom = '25%';
+        circles[2].style.left = '33%';
+    </script>
+</body>
+</html>

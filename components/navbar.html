@@ -1,0 +1,72 @@
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-gradient-to-r from-[#0a0a1a]/90 via-[#1a0a2e]/90 to-[#0a0a1a]/90 border-b-2 border-purple-500/30 shadow-lg shadow-purple-500/20">
+  <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+    
+    <!-- Logo -->
+    <div class="flex items-center gap-3 group cursor-pointer">
+      <div class="logo-container relative inline-block">
+        <img src="/img/logo.png" 
+          alt="Mirage Dev Logo" 
+          class="logo-image inline w-16 h-16 transition-transform duration-500 ease-in-out group-hover:scale-110">
+      </div>
+      <div>
+        <div class="font-graffiti text-2xl font-bold graffiti-mix leading-none">
+          MIRAGE
+        </div>
+        <div class="font-graffiti text-xs text-purple-400 tracking-widest neon-static">
+          DEV
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation (Desktop) -->
+    <nav class="hidden md:flex items-center gap-2">
+      <a href="#inicio" class="relative px-4 py-2 text-sm font-medium text-white hover:text-cyan-400 transition group">
+        <span class="relative z-10">Inicio</span>
+        <div class="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400/10 rounded-lg transition"></div>
+        <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-300"></div>
+      </a>
+      <a href="#servicios" class="relative px-4 py-2 text-sm font-medium text-white hover:text-cyan-400 transition group">
+        <span class="relative z-10">Servicios</span>
+        <div class="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400/10 rounded-lg transition"></div>
+        <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-300"></div>
+      </a>
+      <a href="#portafolio" class="relative px-4 py-2 text-sm font-medium text-white hover:text-cyan-400 transition group">
+        <span class="relative z-10">Portafolio</span>
+        <div class="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400/10 rounded-lg transition"></div>
+        <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-300"></div>
+      </a>
+      <div class="w-px h-6 bg-purple-500/30 mx-2"></div>
+      <a href="#contacto" class="px-6 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-sm font-bold hover:shadow-lg hover:shadow-purple-500/50 hover:scale-105 transition">
+        Contactar 💬
+      </a>
+    </nav>
+
+    <!-- Botón Hamburguesa -->
+    <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 items-end group">
+      <span class="block w-8 h-0.5 bg-cyan-400 group-hover:bg-purple-400 transition-all duration-300"></span>
+      <span class="block w-6 h-0.5 bg-cyan-400 group-hover:bg-purple-400 transition-all duration-300"></span>
+      <span class="block w-4 h-0.5 bg-cyan-400 group-hover:bg-purple-400 transition-all duration-300"></span>
+    </button>
+
+  </div>
+
+  <!-- Menú Móvil -->
+  <div id="mobile-menu" class="hidden flex-col items-center bg-[#0a0a1a]/95 border-t border-purple-500/30 backdrop-blur-xl py-6 space-y-4 md:hidden animate-slide-down">
+    <a href="#inicio" class="text-white hover:text-cyan-400 text-lg font-orbitron transition">Inicio</a>
+    <a href="#servicios" class="text-white hover:text-cyan-400 text-lg font-orbitron transition">Servicios</a>
+    <a href="#portafolio" class="text-white hover:text-cyan-400 text-lg font-orbitron transition">Portafolio</a>
+    <a href="#contacto" class="text-white hover:text-cyan-400 text-lg font-orbitron transition">Contacto</a>
+  </div>
+</header>
+
+<!-- Script -->
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('flex');
+  });
+</script>

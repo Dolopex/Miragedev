@@ -1,0 +1,812 @@
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+.font-orbitron { font-family: 'Orbitron', sans-serif; }
+.font-graffiti { font-family: 'Permanent Marker', cursive; }
+.font-bungee { font-family: 'Bungee Shade', cursive; }
+.font-marker {
+  font-family: 'Permanent Marker', cursive;
+}
+
+
+@keyframes neonBreatheBorder {
+    0%, 100% {
+        box-shadow: 
+            0 0 10px currentColor,
+            0 0 20px currentColor,
+            0 0 30px #8a2be2,
+            inset 0 0 10px rgba(138, 43, 226, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 5px currentColor,
+            0 0 10px currentColor,
+            0 0 15px #8a2be2,
+            inset 0 0 5px rgba(138, 43, 226, 0.2);
+    }
+}
+@keyframes neonBreatheGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.8)) drop-shadow(0 0 40px rgba(0, 245, 255, 0.6));
+    }
+    50% {
+        filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.4)) drop-shadow(0 0 20px rgba(0, 245, 255, 0.3));
+    }
+}
+.neon-border { animation: neonBreatheBorder 3s ease-in-out infinite; }
+.neon-glow { animation: neonBreatheGlow 3s ease-in-out infinite; }
+
+.grid-bg {
+    background-image: 
+        linear-gradient(rgba(138, 43, 226, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(138, 43, 226, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #ff006e, #8a2be2, #00f5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.gradient-text-alt {
+    background: linear-gradient(135deg, #00f5ff, #8a2be2, #ff006e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+.float { animation: float 6s ease-in-out infinite; }
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.pulse { animation: pulse 2s ease-in-out infinite; }
+
+@keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.rotate-bg { animation: rotate 30s linear infinite; }
+
+.hover-glow { transition: all 0.3s ease; }
+.hover-glow:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 30px rgba(138, 43, 226, 0.6)); }
+
+
+/* ==== Animación de brillo y rotación del logo ==== */
+.logo-container {
+    position: relative;
+    display: inline-block;
+    transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.logo-image {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.4));
+}
+
+/* Efecto al pasar el mouse */
+.logo-container:hover .logo-image {
+    transform: rotate(10deg) scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(0, 245, 255, 0.8))
+            drop-shadow(0 0 30px rgba(138, 43, 226, 0.6))
+            drop-shadow(0 0 45px rgba(255, 0, 110, 0.4));
+}
+
+/* Animación tipo pulso luminoso (bucle opcional) */
+@keyframes logoPulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5))
+                drop-shadow(0 0 20px rgba(138, 43, 226, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 15px rgba(0, 245, 255, 0.8))
+                drop-shadow(0 0 30px rgba(138, 43, 226, 0.5));
+    }
+}
+
+.logo-container:hover .logo-image {
+    animation: logoPulse 2s ease-in-out infinite;
+}
+
+/* Animación para "GAMA ÉPICA"*/
+.gradient-text {
+  background: linear-gradient(
+    270deg,
+    #ff0080,
+    #ff8c00,
+    #40e0d0,
+    #8a2be2,
+    #ff0080
+  );
+  background-size: 1000% 1000%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 30s ease infinite;
+}
+
+/*Fondo animado*/
+
+@keyframes hero-gradient-animation {
+    0% {
+        --s-start-0: 8.392121895570533%;
+        --s-end-0: 38.584065253664996%;
+        --c-0: hsla(217.59493670886076, 100%, 30%, 1);
+        --y-0: 63%;
+        --x-0: 93%;
+        --x-1: 33%;
+        --c-1: hsla(0, 0%, 0%, 1);
+        --y-1: -7%;
+        --s-start-1: 8.392121895570533%;
+        --s-end-1: 22.10878124098502%;
+        --x-2: 84%;
+        --s-start-2: 8.392121895570533%;
+        --s-end-2: 22.558651527792346%;
+        --y-2: 7%;
+        --c-2: hsla(0, 0%, 0%, 1);
+        --y-3: 5%;
+        --x-3: 14%;
+        --s-start-3: 8.392121895570533%;
+        --s-end-3: 22.558651527792346%;
+        --c-3: hsla(0, 0%, 0%, 1);
+        --y-4: 96%;
+        --s-start-4: 8.392121895570533%;
+        --s-end-4: 22.558651527792346%;
+        --x-4: 7%;
+        --c-4: hsla(0, 0%, 0%, 1);
+        --y-5: 90%;
+        --x-5: 93%;
+        --c-5: hsla(0, 0%, 0%, 1);
+        --s-start-5: 8.392121895570533%;
+        --s-end-5: 22.558651527792346%;
+        --x-6: 3%;
+        --s-start-6: 8.392121895570533%;
+        --s-end-6: 39.67138181429644%;
+        --c-6: hsla(279.7894736842105, 67%, 27%, 1);
+        --y-6: 61%;
+        --s-start-7: 8.392121895570533%;
+        --s-end-7: 49.58090142552271%;
+        --c-7: hsla(279.7894736842105, 67%, 27%, 1);
+        --y-7: 59%;
+        --x-7: 94%;
+        --y-8: 63%;
+        --c-8: hsla(217.68844221105527, 100%, 39%, 1);
+        --x-8: 48%;
+        --s-start-8: 8.392121895570533%;
+        --s-end-8: 34.815367581495366%;
+        --c-9: hsla(217.59493670886076, 100%, 30%, 1);
+        --y-9: 78%;
+        --x-9: 96%;
+        --s-start-9: 8.392121895570533%;
+        --s-end-9: 31.77166380372925%;
+    }
+
+    50% {
+        --s-start-0: 12.892043731642234%;
+        --s-end-0: 42.94837818044209%;
+        --c-0: hsla(217.59493670886076, 100%, 30%, 1);
+        --y-0: 59%;
+        --x-0: 2%;
+        --x-1: 42%;
+        --c-1: hsla(0, 0%, 0%, 1);
+        --y-1: 10%;
+        --s-start-1: 8.392121895570533%;
+        --s-end-1: 41.69445156991687%;
+        --x-2: 75%;
+        --s-start-2: 8.392121895570533%;
+        --s-end-2: 20.488815899465003%;
+        --y-2: 29%;
+        --c-2: hsla(0, 0%, 0%, 1);
+        --y-3: 16%;
+        --x-3: 5%;
+        --s-start-3: 8.392121895570533%;
+        --s-end-3: 30.099844327777923%;
+        --c-3: hsla(0, 0%, 0%, 1);
+        --y-4: 91%;
+        --s-start-4: 8.392121895570533%;
+        --s-end-4: 24.59566937006635%;
+        --x-4: 36%;
+        --c-4: hsla(0, 0%, 0%, 1);
+        --y-5: 91%;
+        --x-5: 70%;
+        --c-5: hsla(0, 0%, 0%, 1);
+        --s-start-5: 8.392121895570533%;
+        --s-end-5: 24.59566937006635%;
+        --x-6: 54%;
+        --s-start-6: 9%;
+        --s-end-6: 26.825849058644888%;
+        --c-6: hsla(279.7894736842105, 67%, 27%, 1);
+        --y-6: 73%;
+        --s-start-7: 9%;
+        --s-end-7: 49.05074977970796%;
+        --c-7: hsla(279.7894736842105, 67%, 27%, 1);
+        --y-7: 76%;
+        --x-7: 57%;
+        --y-8: 53%;
+        --c-8: hsla(217.68844221105527, 100%, 39%, 1);
+        --x-8: 11%;
+        --s-start-8: 9;
+        --s-end-8: 26.166345747226664%;
+        --c-9: hsla(217.59493670886076, 100%, 30%, 1);
+        --y-9: 70%;
+        --x-9: 70%;
+        --s-start-9: 9;
+        --s-end-9: 22.152460022684956%;
+    }
+
+    100% {
+        --x-1: 76%;
+        --c-1: hsla(0, 0%, 0%, 1);
+        --y-1: -3%;
+        --s-start-1: 8.392121895570533%;
+        --s-end-1: 59.32232816638693%;
+        --x-2: 97%;
+        --s-start-2: 8.392121895570533%;
+        --s-end-2: 28.52989037790774%;
+        --y-2: 18%;
+        --c-2: hsla(0, 0%, 0%, 1);
+        --y-3: 18%;
+        --x-3: 42%;
+        --s-start-3: 8.392121895570533%;
+        --s-end-3: 28.52989037790774%;
+        --c-3: hsla(0, 0%, 0%, 1);
+        --y-4: 95%;
+        --s-start-4: 8.392121895570533%;
+        --s-end-4: 28.52989037790774%;
+        --x-4: 66%;
+        --c-4: hsla(0, 0%, 0%, 1);
+        --y-5: 92%;
+        --x-5: 46%;
+        --c-5: hsla(0, 0%, 0%, 1);
+        --s-start-5: 8.392121895570533%;
+        --s-end-5: 28.52989037790774%;
+        --x-6: 102%;
+        --s-start-6: 24.72064437400016%;
+        --s-end-6: 47.490620328604024%;
+        --c-6: hsla(279.7894736842105, 67%, 27%, 1);
+        --y-6: 16%;
+        --s-start-7: 10.200720718860145%;
+        --s-end-7: 50.46456494288142%;
+        --c-7: hsla(279.7894736842105, 67%, 27%, 1);
+        --y-7: 52%;
+        --x-7: 22%;
+        --c-9: hsla(217.5, 100%, 31%, 1);
+        --y-9: 51%;
+        --x-9: 97%;
+        --s-start-9: 6.294132688184733%;
+        --s-end-9: 20.79106730744014%;
+    }
+}
+
+@property --s-start-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 38.584065253664996%
+}
+
+@property --c-0 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(217.59493670886076, 100%, 30%, 1)
+}
+
+@property --y-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 63%
+}
+
+@property --x-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 93%
+}
+
+@property --x-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 33%
+}
+
+@property --c-1 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(0, 0%, 0%, 1)
+}
+
+@property --y-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: -7%
+}
+
+@property --s-start-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.10878124098502%
+}
+
+@property --x-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 84%
+}
+
+@property --s-start-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.558651527792346%
+}
+
+@property --y-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --c-2 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(0, 0%, 0%, 1)
+}
+
+@property --y-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 5%
+}
+
+@property --x-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 14%
+}
+
+@property --s-start-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.558651527792346%
+}
+
+@property --c-3 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(0, 0%, 0%, 1)
+}
+
+@property --y-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 96%
+}
+
+@property --s-start-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.558651527792346%
+}
+
+@property --x-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --c-4 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(0, 0%, 0%, 1)
+}
+
+@property --y-5 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 90%
+}
+
+@property --x-5 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 93%
+}
+
+@property --c-5 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(0, 0%, 0%, 1)
+}
+
+@property --s-start-5 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-5 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.558651527792346%
+}
+
+@property --x-6 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 3%
+}
+
+@property --s-start-6 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-6 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 39.67138181429644%
+}
+
+@property --c-6 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(279.7894736842105, 67%, 27%, 1)
+}
+
+@property --y-6 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 61%
+}
+
+@property --s-start-7 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-7 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 49.58090142552271%
+}
+
+@property --c-7 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(279.7894736842105, 67%, 27%, 1)
+}
+
+@property --y-7 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 59%
+}
+
+@property --x-7 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 94%
+}
+
+@property --y-8 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 63%
+}
+
+@property --c-8 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(217.68844221105527, 100%, 39%, 1)
+}
+
+@property --x-8 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 48%
+}
+
+@property --s-start-8 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-8 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 34.815367581495366%
+}
+
+@property --c-9 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(217.59493670886076, 100%, 30%, 1)
+}
+
+@property --y-9 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 78%
+}
+
+@property --x-9 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 96%
+}
+
+@property --s-start-9 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-9 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 31.77166380372925%
+}
+
+.hero-gradient-bg {
+    --c-0: hsla(217.59493670886076, 100%, 30%, 1);
+    --y-0: 63%;
+    --x-0: 93%;
+    --x-1: 33%;
+    --c-1: hsla(0, 0%, 0%, 1);
+    --y-1: -7%;
+    --x-2: 84%;
+    --y-2: 7%;
+    --c-2: hsla(0, 0%, 0%, 1);
+    --y-3: 5%;
+    --x-3: 14%;
+    --c-3: hsla(0, 0%, 0%, 1);
+    --y-4: 96%;
+    --x-4: 7%;
+    --c-4: hsla(0, 0%, 0%, 1);
+    --y-5: 90%;
+    --x-5: 93%;
+    --c-5: hsla(0, 0%, 0%, 1);
+    --x-6: 3%;
+    --c-6: hsla(279.7894736842105, 67%, 27%, 1);
+    --y-6: 61%;
+    --c-7: hsla(279.7894736842105, 67%, 27%, 1);
+    --y-7: 59%;
+    --x-7: 94%;
+    --y-8: 63%;
+    --c-8: hsla(217.68844221105527, 100%, 39%, 1);
+    --x-8: 48%;
+    --c-9: hsla(217.59493670886076, 100%, 30%, 1);
+    --y-9: 78%;
+    --x-9: 96%;
+    ;
+    background-color: rgb(58, 6, 93);
+    background-image: radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0), transparent var(--s-end-0)), radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1), transparent var(--s-end-1)), radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2), transparent var(--s-end-2)), radial-gradient(circle at var(--x-3) var(--y-3), var(--c-3) var(--s-start-3), transparent var(--s-end-3)), radial-gradient(circle at var(--x-4) var(--y-4), var(--c-4) var(--s-start-4), transparent var(--s-end-4)), radial-gradient(circle at var(--x-5) var(--y-5), var(--c-5) var(--s-start-5), transparent var(--s-end-5)), radial-gradient(circle at var(--x-6) var(--y-6), var(--c-6) var(--s-start-6), transparent var(--s-end-6)), radial-gradient(circle at var(--x-7) var(--y-7), var(--c-7) var(--s-start-7), transparent var(--s-end-7)), radial-gradient(circle at var(--x-8) var(--y-8), var(--c-8) var(--s-start-8), transparent var(--s-end-8)), radial-gradient(circle at var(--x-9) var(--y-9), var(--c-9) var(--s-start-9), transparent var(--s-end-9));
+    animation: hero-gradient-animation 15s linear infinite alternate-reverse;
+    background-blend-mode: normal, normal, normal, normal, normal, normal, normal, normal, normal, normal;
+    opacity: 0.3;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    270deg,
+    #ff0080,
+    #ff8c00,
+    #40e0d0,
+    #8a2be2,
+    #ff0080
+  );
+  background-size: 1000% 1000%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 25s ease infinite;
+}
+
+/* Animación suave del gradiente */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Efecto neon footer */
+.neon-text {
+  text-shadow: 0 0 4px rgb(0, 255, 132), 0 0 1px #0ff, 0 0 15px #0ff;
+}
+
+.font-handwriting {
+  font-family: 'Pacifico', 'Great Vibes', 'Dancing Script', cursive;
+}
+
+
+/*ESTILOS PARA PORFOLIO*/
+  /* Efectos extra */
+  .project-card.active {
+    border-color: #00ffff;
+    box-shadow: 0 0 40px #00ffff88, inset 0 0 20px #00ffff33;
+    transform: scale(1.04);
+  }
+
+  .project-card.active img {
+    opacity: 0.5;
+    filter: blur(1px);
+  }
+
+
+  @keyframes neonflow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+
+/*Estilos para modals*/
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, rgba(0, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    z-index: 50;
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  .modal-content {
+    position: relative;
+    background: rgba(17, 9, 30, 0.95);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.2);
+    animation: slideUp 0.4s ease-out;
+  }
+
+  .badge {
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: #00ffff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: linear-gradient(90deg, #00ffff, #8b5cf6);
+    color: #000;
+    font-weight: 700;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+  }
+  .cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #00ffff80;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(40px) scale(0.95); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+/*Code*/
+#bot {
+  animation: flotar 3s ease-in-out infinite;
+  box-shadow: 0 0 10px #a855f7, 0 0 30px #a855f7;
+}
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/*contacto*/
+@keyframes snake-border {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 400% 0%; }
+}
+
+.neon-border-snake {
+  background: linear-gradient(90deg, #0ff, #8a2be2, #ff00ff, #0ff, #8a2be2);
+  background-size: 400%;
+  animation: snake-border 6s linear infinite;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 3px;
+  border-radius: 1.5rem;
+}
+
+/* Inputs con animación */
+.input-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(147, 51, 234, 0.6);
+  padding: 10px 0;
+  color: white;
+  font-size: 1.1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.input-field:focus {
+  border-color: #00ffff;
+  box-shadow: 0 4px 20px #00ffff40;
+}
+
+.input-label {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  color: rgba(200, 200, 255, 0.5);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.input-field:focus + .input-label,
+.input-field:not(:placeholder-shown) + .input-label {
+  top: -14px;
+  font-size: 0.9rem;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+/*Menu hamburguesa*/
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease forwards;
+}
